@@ -1,0 +1,3 @@
+micropython-re-pcre
+micropython-collections
+micropython-collections.defaultdict
