@@ -1,15 +1,3 @@
-#web_config.py
-# config tool for pi pico w
-# opens an access point on default ip
-#allows user to store a number of attributes in a file on the pico
-#each attribute on a new line
-#attributes may be wifi SSID and passwords
-#the following characters must not be used in attributes "£", "+", "&", "%", "^"
-#lightweight implementation, no style sheets etc.
-#"set_labels()" and "web_page() could be reorganised with *args and accept a flexible number of args
-#default ssid PicoConfig, default pw 12345678, default attributes "Attribute 1:" - "Attribute 10:"
-#v1.0
-#patrick bray 2023
 import network, json, os, machine, time
 import urllib.parse as urlparse
 try:
