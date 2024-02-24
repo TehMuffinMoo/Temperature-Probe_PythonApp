@@ -245,7 +245,17 @@ def web_page(request):
                     <div>
                         <h3>Temperature Probes</h3>
                         <div id="tempProbeDiv">
-                        <p>You can assign friendly names to the connected temperature probes here.</p>
+                            <p>You can assign friendly names to the connected temperature probes here.</p>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Probe UID</th>
+                                        <th>Probe Description</th>
+                                        <th>MQTT Topic</th>
+                                    </tr>
+                                <tbody id="table-tbody">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <p for="bname">The following characters cannot be used in the settings "£", "+", "&", "%", "^"</p><br>
@@ -277,26 +287,30 @@ def web_page(request):
                 </html>
                 <script>
                     function loadProbes(probeData) {
-                        var container = document.getElementById('tempProbeDiv');
-                        container.innerHTML = "";
+                        var table = document.getElementById('table-tbody');
+                        table.innerHTML = "";
                         for (let probes of Object.entries(probeData)) {
-                            var div = document.createElement('div');
-                            div.className = "probeDevice";
-                            div.id = probes[0];
-                            var label = document.createElement('label');
-                            var descriptionInput = document.createElement('input');
-                            var topicInput = document.createElement('input');
-                            descriptionInput.type = 'text';
-                            descriptionInput.value = probes[1]['Description'];
-                            descriptionInput.className = "probeDescription";
-                            topicInput.type = 'text';
-                            topicInput.value = probes[1]['MQTT Topic'];
-                            topicInput.className = "probeTopic";
-                            label.innerHTML = probes[0];
-                            container.appendChild(div);
-                            div.appendChild(label);
-                            div.appendChild(descriptionInput);
-                            div.appendChild(topicInput);
+                            var tr = document.createElement('tr');
+                            tr.className = "probeDevice";
+                            tr.id = probes[0];
+                            var probeUIDTd = document.createElement('td');
+                            var probeDescriptionTd = document.createElement('td');
+                            var probeMQTTTopicTd = document.createElement('td');
+                            var probeDescription = document.createElement('input');
+                            var probeMQTTTopic = document.createElement('input');
+                            probeDescription.type = 'text';
+                            probeDescription.value = probes[1]['Description'];
+                            probeDescription.className = "probeDescription";
+                            probeMQTTTopic.type = 'text';
+                            probeMQTTTopic.value = probes[1]['MQTT Topic'];
+                            probeMQTTTopic.className = "probeTopic";
+                            probeUIDTd.innerHTML = probes[0];
+                            table.appendChild(tr);
+                            tr.appendChild(probeUIDTd);
+                            tr.appendChild(probeDescriptionTd);
+                            tr.appendChild(probeMQTTTopicTd);
+                            probeDescriptionTd.appendChild(probeDescription);
+                            probeMQTTTopicTd.appendChild(probeMQTTTopic);
                         }
                     }
                 
